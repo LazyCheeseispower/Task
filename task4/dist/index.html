@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task3-网页轮播图</title>
+    <!-- 引入css 初始化的css 文件 -->
+    <link rel="stylesheet" href="076610b14f6c3a7a6c2e.css">
+    <!-- 引入 首页的css文件 -->
+    <link rel="stylesheet" href="bb3d02548df8a5294a62.css">
+    <!-- 这个animate.js 必须写到 index.js的上面引入 -->
+    <!-- <script src="dist/bundle.js"></script> -->
+    <!-- 引入我们首页的js文件 -->
+    <!-- <script src="src/js/index.js"></script> -->
+
+    <script src="./../src/js/try.js"></script>
+</head>
+
+<body>
+    <div class="w">
+        <div class="main">
+            <div class="focus">
+                <!-- 左侧按钮 -->
+                <a href="javascript:;" class="arrowLeft">
+                    &lt;
+                </a>
+                <!-- 右侧按钮 -->
+                <a href="javascript:;" class="arrowRight">
+                    &gt;
+                </a>
+                <!-- 核心的滚动区域 -->
+                <ul>
+                    <li>
+                        <a href="#"><img src="static/images/focus.ea3def0356a649a054b4..jpg" alt=""></a>
+                    </li>
+                    <li>
+                        <a href="#"><img src="static/images/focus1.66f7fa30c833ec7abce4..jpg" alt=""></a>
+                    </li>
+                    <li>
+                        <a href="#"><img src="static/images/focus2.332edaa3003e6a0e88e5..jpg" alt=""></a>
+                    </li>
+                    <li>
+                        <a href="#"><img src="static/images/focus3.6c1c53b2f816c1690aad..jpg" alt=""></a>
+                    </li>
+                </ul>
+                <!-- 小圆圈 -->
+                <ol class="circle">
+
+                </ol>
+            </div>
+        </div>
+    </div>
+    <script>
+        /* 获取容器 */
+        var wrap = document.querySelector('.w');
+        /* 调用 */
+        new Swiper(wrap);
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task3-网页轮播图</title>
+    <!-- 引入css 初始化的css 文件 -->
+    <link rel="stylesheet" href="src/css/base.css">
+    <!-- 引入 首页的css文件 -->
+    <link rel="stylesheet" href="src/css/index.css">
+    <!-- 这个animate.js 必须写到 index.js的上面引入 -->
+    <!-- <script src="dist/bundle.js"></script> -->
+    <!-- 引入我们首页的js文件 -->
+    <!-- <script src="src/js/index.js"></script> -->
+
+</head>
+
+<body>
+    <div class="w">
+        <div class="main">
+            <div class="focus">
+                <!-- 左侧按钮 -->
+                <a href="javascript:;" class="arrowLeft">
+                    &lt;
+                </a>
+                <!-- 右侧按钮 -->
+                <a href="javascript:;" class="arrowRight">
+                    &gt;
+                </a>
+                <!-- 核心的滚动区域 -->
+                <ul>
+                    <li>
+                        <a href="#"><img src="upload/focus.jpg" alt=""></a>
+                    </li>
+                    <li>
+                        <a href="#"><img src="upload/focus1.jpg" alt=""></a>
+                    </li>
+                    <li>
+                        <a href="#"><img src="upload/focus2.jpg" alt=""></a>
+                    </li>
+                    <li>
+                        <a href="#"><img src="upload/focus3.jpg" alt=""></a>
+                    </li>
+                </ul>
+                <!-- 小圆圈 -->
+                <ol class="circle">
+
+                </ol>
+            </div>
+        </div>
+    </div>
+    <script>
+        /* 获取容器 */
+        var wrap = document.querySelector('.w');
+        /* 调用 */
+        new Swiper(wrap);
+    </script>
+</body>
+
+</html>
