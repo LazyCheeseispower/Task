@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task4-网页轮播图</title>
+    <!-- 引入css 初始化的css 文件 -->
+    <!-- <link rel="stylesheet" href="src/css/base.css"> -->
+    <!-- 引入 首页的css文件 -->
+    <!-- <link rel="stylesheet" href="src/css/index.css"> -->
+    <!-- 这个animate.js 必须写到 index.js的上面引入 -->
+    <!-- <script src="./dist/bundle.js"></script> -->
+    <!-- 引入我们首页的js文件 -->
+    <!-- <script src="src/js/index.js"></script> -->
+    <script src="./dist/bundle.js"></script>
+    <script src="./../express-upload-file/uploads/focus.jpg"></script>
+</head>
+
+<body>
+    <input type="button" value="创建一个轮播图" id="btn">
+
+    <script>
+        var btn = document.getElementById("btn");
+
+        document.getElementById("btn").onclick = function () {
+            var div = document.createElement("div"); //创建一个标签
+            div.className = "w"; //给创建的div设置class；
+            document.body.appendChild(div)
+
+            var div1 = document.createElement("div"); //创建一个标签
+            div1.className = "main"; //给创建的div设置class；
+            div.appendChild(div1);
+
+            var div2 = document.createElement("div"); //创建一个标签
+            div2.className = "focus"; //给创建的div设置class；
+            div1.appendChild(div2);
+
+            var a1 = document.createElement("a"); //创建一个标签
+            a1.className = "arrowLeft"; //给创建的a设置class；
+            a1.setAttribute('href', 'javascript:;');
+            a1.innerHTML = "&lt";
+            div2.appendChild(a1);
+
+            var a2 = document.createElement("a"); //创建一个标签
+            a2.className = "arrowRight"; //给创建的a设置class；
+            a2.setAttribute('href', 'javascript:;');
+            a2.innerHTML = "&gt";
+            div2.appendChild(a2);
+            
+            
+            //图片区域
+
+            var ul1 = document.createElement("ul");
+            ul1.className = "uls";
+            div2.appendChild(ul1);
+            for (let i = 0; i < 4; i++) {
+                let li = document.createElement("li");
+                li.className = "list";
+                ul1.appendChild(li);
+                ul1.childNodes[i].innerHTML = '<a href="#"><img src="./../express-upload-file/uploads/focus'+i+'.jpg" alt=""></a>';
+            
+            }
+
+
+            // ul1.childNodes[0].innerHTML = '<a href="#"><img src="./../express-upload-file/uploads/focus0.jpg" alt=""></a>';
+            // ul1.childNodes[1].innerHTML = '<a href="#"><img src="./../express-upload-file/uploads/focus1.jpg" alt=""></a>';
+            // ul1.childNodes[2].innerHTML = '<a href="#"><img src="./../express-upload-file/uploads/focus2.jpg" alt=""></a>';
+            // ul1.childNodes[3].innerHTML = '<a href="#"><img src="./../express-upload-file/uploads/focus3.jpg" alt=""></a>';
+//小圆点
+            var ol1 = document.createElement("ol");
+            ol1.className = "circle";
+            div2.appendChild(ol1);
+
+            var wrap = document.querySelector('.w');
+            /* 调用 */
+            new MyLibrary.Swiper(wrap);
+        }
+    </script>
+</body>
+
+</html>

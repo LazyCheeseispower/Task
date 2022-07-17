@@ -5,17 +5,17 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Task3-网页轮播图</title>
+    <title>Task4-网页轮播图</title>
     <!-- 引入css 初始化的css 文件 -->
-    <link rel="stylesheet" href="076610b14f6c3a7a6c2e.css">
+    <!-- <link rel="stylesheet" href="src/css/base.css"> -->
     <!-- 引入 首页的css文件 -->
-    <link rel="stylesheet" href="bb3d02548df8a5294a62.css">
+    <!-- <link rel="stylesheet" href="src/css/index.css"> -->
     <!-- 这个animate.js 必须写到 index.js的上面引入 -->
-    <!-- <script src="dist/bundle.js"></script> -->
+    <!-- <script src="./dist/bundle.js"></script> -->
     <!-- 引入我们首页的js文件 -->
     <!-- <script src="src/js/index.js"></script> -->
 
-    <script src="./../src/js/try.js"></script>
+    <script src="bundle.js"></script>
 </head>
 
 <body>
@@ -53,10 +53,11 @@
         </div>
     </div>
     <script>
+
         /* 获取容器 */
         var wrap = document.querySelector('.w');
         /* 调用 */
-        new Swiper(wrap);
+        new MyLibrary.Swiper(wrap);
     </script>
 </body>
 
