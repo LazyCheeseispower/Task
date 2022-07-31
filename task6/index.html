@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task5-网页轮播图</title>
+    <!-- 引入css 初始化的css 文件 -->
+    <!-- <link rel="stylesheet" href="src/css/base.css"> -->
+    <!-- 引入 首页的css文件 -->
+    <!-- <link rel="stylesheet" href="src/css/index.css"> -->
+    <!-- 这个animate.js 必须写到 index.js的上面引入 -->
+    <!-- <script src="./dist/bundle.js"></script> -->
+    <!-- 引入我们首页的js文件 -->
+    <!-- <script src="src/js/index.js"></script> -->
+
+</head>
+
+<body>
+    <input type="button" value="创建一个轮播图" id="btn">
+    <input type="button" value="添加轮播图片" id="btn1" disabled="disabled">
+    <input type="button" value="摧毁一个轮播图" id="btn2" disabled="disabled">
+    <script>
+        var button = document.getElementById("btn");
+        var flag = 0;
+        btn.onclick = function () {
+            swiper = new MyLibrary.NewSwiper(btn);
+            //console.log(swiper);
+            //swiper.get();
+            flag++;
+            if (flag !== 0) {
+                btn2.disabled = false
+                btn1.disabled = false
+            } else (
+                btn2.disabled = true,
+                btn1.disabled = true
+            )
+        }
+
+        var button1 = document.getElementById("btn1");
+        btn1.onclick = function () {
+            swiper.get();
+        }
+
+        var button2 = document.getElementById("btn2");
+        btn2.onclick = function () {
+            //swiper.get();
+            console.log('111');
+            flag--;
+            swiper.destory();
+            if (flag !== 0) {
+                btn2.disabled = false
+                btn1.disabled = false
+            } else (
+                btn2.disabled = true,
+                btn1.disabled = true
+            )
+        }
+    </script>
+</body>
+
+</html>
