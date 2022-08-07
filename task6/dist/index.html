@@ -39,14 +39,15 @@
         }
 
         var button1 = document.getElementById("btn1");
-        btn1.onclick = function () {
+        btn1.onclick = () => {
             swiper.get();
+            // console.log(swiper)
         }
 
         var button2 = document.getElementById("btn2");
         btn2.onclick = function () {
             //swiper.get();
-            console.log('111');
+            //console.log('111');
             flag--;
             swiper.destory();
             if (flag !== 0) {

@@ -1,0 +1,91 @@
+/* 版心 */
+.w {
+    width: 1240px;
+    margin: 0 auto;
+}
+
+.bw {
+    width: 1471px;
+    margin: 0 auto;
+    padding: 24px;
+}
+
+.fl {
+    float: left;
+    margin-right: 15px;
+}
+
+.fm {
+    float: left;
+}
+
+.fr {
+    float: right;
+}
+
+/* 快捷导航模块 */
+.top{
+    height:155px;
+}
+.top-image{
+    float:left;
+
+}
+.shortcut {
+    height: 64px;
+    /* background-color: #f1f1f1 ; */
+    background-color:rgba(0,0,0,0);
+    position: fixed;
+}
+
+.shortcut ul li {
+    float: left;
+    font-size: 14px;
+}
+
+.shortcut ul li span {
+    margin-right: 15px;
+}
+
+.shortcut ul li #jianianhua {
+    display:block;
+    width: 54px;
+}
+
+.shortcut ul li svg {
+    margin-right: 6px;
+}
+
+.search {
+    width: 384px;
+    height: 38px;
+    padding: 0px 48px 0px 4px;
+    border: 1px solid;
+    border-radius: 8px;
+    position: fixed;
+    top:16px;
+    background-color: #f1f1f1;
+}
+
+.search input {
+    width: 384px;
+    height: 32px;
+    padding: 0px 8px;
+    border: 2px solid #f1f1f1;
+    border-radius: 6px;
+    background-color: #f1f1f1;
+
+}
+
+.search button {
+    width: 32px;
+    height: 32px;
+    padding: 0px;
+    border: 0px;
+    border-radius: 6px;
+    position: absolute;
+    left: 397px;
+    top: 3px;
+    bottom: 3px;
+    right: 7px;
+}

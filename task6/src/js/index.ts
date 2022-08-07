@@ -30,7 +30,7 @@ export class NewSwiper {
     flag: boolean;
     num: number;
     circle: number;
-
+    timer: number;
     constructor(el: HTMLElement) {
         this.init()
         this.btn = el;
@@ -47,42 +47,43 @@ export class NewSwiper {
         this.flag = true;
         this.num = 0;
         this.circle = 0;
+        this.timer = 0;
         this.do()
     }
     create() {
-        var div = document.createElement('div');
+        const div = document.createElement('div');
         div.className = ".w";//创建 w 盒子
         document.body.appendChild(div)
 
-        var div1 = document.createElement("div");
+        const div1 = document.createElement("div");
         div1.className = "main"; //创建 main 盒子
         div.appendChild(div1);
 
-        var div2 = document.createElement("div");
+        const div2 = document.createElement("div");
         div2.className = "focus"; //创建 focus 盒子
         div1.appendChild(div2);
 
-        var a1 = document.createElement('a')
+        const a1 = document.createElement('a')
         a1.className = "arrowLeft"; //给创建的a设置class；
         a1.setAttribute('href', 'javascript:;');
         a1.innerHTML = "&lt";
         div2.appendChild(a1);
 
-        var a2 = document.createElement("a");
+        const a2 = document.createElement("a");
         a2.className = "arrowRight"; //给创建的a设置class；
         a2.setAttribute('href', 'javascript:;');
         a2.innerHTML = "&gt";
         div2.appendChild(a2);
 
-        var ul1 = document.createElement("ul");
+        const ul1 = document.createElement("ul");
         ul1.className = "uls";
         div2.appendChild(ul1);
         for (let i = 0; i < 4; i++) {
-            let li = document.createElement("li");
+            const li = document.createElement("li");
             li.className = "list";
             ul1.appendChild(li);
         }
-        var ol1 = document.createElement("ol");
+        const ol1 = document.createElement("ol");
         ol1.className = "circle";
         div2.appendChild(ol1);
 
@@ -90,19 +91,19 @@ export class NewSwiper {
     get() {
         this.getImageList(function (list) {
             //console.log(list);
-            let ul = document.querySelectorAll("ul");
+            const ul = document.querySelectorAll("ul");
             //let ul1 = ul[ul.length - 1];
             //console.log(ul);
             //console.log(ul1);
             for (let j = 0; j < ul.length; j++) {
-                let ul1 = ul[ul.length - j - 1];
+                const ul1 = ul[ul.length - j - 1];
                 if (ul1.getAttribute('id') !== 'completed') {
                     for (let i = 0; i < list.length; i++) {
-                        var result = list[i];
+                        const result = list[i];
                         (ul1.childNodes[i] as HTMLElement).innerHTML = '<a href="#"><img src=" ' + result.url + '" alt=""></a>';
                     }
                     // 6. 克隆第一张图片(li)放到ul 最后面
-                    var first = ul1.children[0].cloneNode(true);
+                    const first = ul1.children[0].cloneNode(true);
                     ul1.appendChild(first);
                     ul1.setAttribute('id', 'completed');
                 }
@@ -113,21 +114,25 @@ export class NewSwiper {
 
 
     getImageList(callback: (arg0: IList[]) => void) {
-        var xhr = new XMLHttpRequest()
+        const xhr = new XMLHttpRequest()
         xhr.open('GET', 'https://tuzkiss-1257228966.cos.ap-shanghai.myqcloud.com/data')
         xhr.send()
         xhr.onreadystatechange = function () {
-            if (xhr.readyState === 4 && xhr.status === 200) {
-                //console.log(xhr.responseText);
-                var alldata: IAllData = JSON.parse(xhr.responseText);//这里设置 data 为 any 类型是因为往往后端数据不确定，接口不方便定义               
-                var list = alldata.data.list;
-                callback(list);
+            if (xhr.readyState === 4) {
+                if ((xhr.status >= 200 && xhr.status < 300) || xhr.status == 304) {
+                    //console.log(xhr.responseText);
+                    const alldata: IAllData = JSON.parse(xhr.responseText);//这里设置 data 为 any 类型是因为往往后端数据不确定，接口不方便定义               
+                    const list = alldata.data.list;
+                    callback(list);
+                } else {
+                    alert("Request was unsuccessful: " + xhr.status);
+                }
             }
         };
     }
     circleChange() {
         // 先清除其余小圆圈的current类名
-        for (var i = 0; i < this.ol.children.length; i++) {
+        for (let i = 0; i < this.ol.children.length; i++) {
             this.ol.children[i].className = '';
         }
         // 留下当前的小圆圈的current类名
@@ -143,7 +148,7 @@ export class NewSwiper {
                 this.num = 0;
             }
             this.num++;
-            animate(this.ul, -this.num * this.focusWidth, function () {
+            this.animate(this.ul, -this.num * this.focusWidth, function () {
                 // 打开节流阀
             });
             this.flag = true;
@@ -166,9 +171,7 @@ export class NewSwiper {
                 this.ul.style.left = -this.num * this.focusWidth + 'px';
             }
             this.num--;
-            animate(this.ul, -this.num * this.focusWidth, function () {
-
-            });
+            this.animate(this.ul, -this.num * this.focusWidth,);
             // 点击左侧按钮，小圆圈跟随一起变化 可以再声明一个变量控制小圆圈的播放
             this.flag = true;
             this.circle--;
@@ -182,108 +185,103 @@ export class NewSwiper {
         }
     }
     do() {
-        const that = this;
         this.arrowLeft.onclick = this.leftClick.bind(this);
         this.arrowRight.onclick = this.rightClick.bind(this);
 
-        var scTimer = window.setInterval(function () {
+        const scTimer = setInterval(() => {
             //手动调用点击事件
-            that.arrowRight.onclick;
+            this.arrowRight.click();
         }, 2000);
 
-
-        this.focus.addEventListener('mouseenter', function () {
-            that.arrowLeft.style.display = 'block';
-            that.arrowRight.style.display = 'block';
+        this.focus.addEventListener('mouseenter', () => {
+            this.arrowLeft.style.display = 'block';
+            this.arrowRight.style.display = 'block';
 
             clearInterval(scTimer);
-            scTimer = 0; // 清除定时器变量
+            //scTimer = null; // 清除定时器变量
         });
 
-        this.focus.addEventListener('mouseleave', function () {
-            that.arrowLeft.style.display = 'none';
-            that.arrowRight.style.display = 'none';
-            scTimer = window.setInterval(function () {
-                //手动调用点击事件
-                that.arrowRight.click();
-            }, 2000);
+        this.focus.addEventListener('mouseleave', () => {
+            this.arrowLeft.style.display = 'none';
+            this.arrowRight.style.display = 'none';
+            scTimer
         });
 
 
 
         // console.log(ul.children.length);
 
-        for (var i: number = 0; i < this.ul.children.length; i++) {
+        for (let i = 0; i < this.ul.children.length; i++) {
             // 创建一个小li
-            var li = document.createElement('li');
+            const li = document.createElement('li');
             // 记录当前小圆圈的索引号 通过自定义属性来做
             li.setAttribute('index', i + '');
             // 把小li插入到ol 里面
-            that.ol.appendChild(li);
+            this.ol.appendChild(li);
             // 4. 小圆圈的排他思想 我们可以直接在生成小圆圈的同时直接绑定点击事件
-            li.addEventListener('click', function () {
+            li.addEventListener('click', () => {
                 // 干掉所有人 把所有的小li 清除 current 类名
-                for (var i = 0; i < that.ol.children.length; i++) {
-                    that.ol.children[i].className = '';
+                for (let i = 0; i < this.ol.children.length; i++) {
+                    this.ol.children[i].className = '';
                 }
                 // 留下我自己  当前的小li 设置current 类名
-                this.className = 'current';
+                li.className = 'current';
                 // 5. 点击小圆圈，移动图片 当然移动的是 ul
                 // ul 的移动距离 小圆圈的索引号 乘以 图片的宽度 注意是负值
                 // 当我们点击了某个小li 就拿到当前小li 的索引号
-                var index: any = this.getAttribute('index');
+                const index = Number(li.getAttribute('index'));
                 // 当我们点击了某个小li 就要把这个li 的索引号给 this.num
-                that.num = index;
+                this.num = index;
                 // 当我们点击了某个小li 就要把这个li 的索引号给 this.circle
-                that.circle = index;
+                this.circle = index;
                 // this.num = this.circle = index;
-                console.log(that.focusWidth);
-                console.log(index);
+                //console.log(that.focusWidth);
+                //console.log(index);
 
-                animate(that.ul, -index * that.focusWidth);
-                that.circleChange();
+                this.animate(this.ul, -index * this.focusWidth);
+                this.circleChange();
             })
         }
-        that.ol.children[0].className = 'current';
+        this.ol.children[0].className = 'current';
 
 
     }
     destory() {
         //this.w.remove()
         //console.log(this.w);
-        var all = document.querySelectorAll('div');
-        var w = all[all.length - 3];
+        const all = document.querySelectorAll('div');
+        const w = all[all.length - 3];
         w.remove()
 
+    }
+    // eslint-disable-next-line @typescript-eslint/ban-types
+    animate(obj: HTMLElement, target: number, callback?: Function) {
+        // console.log(callback);  callback = function() {}  调用的时候 callback()
+        // 先清除以前的定时器，只保留当前的一个定时器执行
+        // obj.setAttribute("timer", "");
+        clearInterval(this.timer);
+        this.timer = window.setInterval(() => {
+            // 步长值写到定时器的里面
+            // 把我们步长值改为整数 不要出现小数的问题
+            // var step = Math.ceil((target - obj.offsetLeft) / 10);
+            let step = (target - obj.offsetLeft) / 10;
+            step = step > 0 ? Math.ceil(step) : Math.floor(step);
+            if (obj.offsetLeft == target) {
+                // 停止动画 本质是停止定时器
+                clearInterval(this.timer);
+                // 回调函数写到定时器结束里面
+                // if (callback) {
+                //     // 调用函数
+                //     callback();
+                // }
+                callback && callback();
+            }
+            // 把每次加1 这个步长值改为一个慢慢变小的值  步长公式：(目标值 - 现在的位置) / 10
+            obj.style.left = obj.offsetLeft + step + 'px';
+
+        }, 15);
     }
     init() {
         this.create();
     }
 }
-
-function animate(obj: any, target: number, callback?: any) {
-    // console.log(callback);  callback = function() {}  调用的时候 callback()
-
-    // 先清除以前的定时器，只保留当前的一个定时器执行
-    clearInterval(obj.scTimer);
-    obj.scTimer = setInterval(function () {
-        // 步长值写到定时器的里面
-        // 把我们步长值改为整数 不要出现小数的问题
-        // var step = Math.ceil((target - obj.offsetLeft) / 10);
-        var step = (target - obj.offsetLeft) / 10;
-        step = step > 0 ? Math.ceil(step) : Math.floor(step);
-        if (obj.offsetLeft == target) {
-            // 停止动画 本质是停止定时器
-            clearInterval(obj.scTimer);
-            // 回调函数写到定时器结束里面
-            // if (callback) {
-            //     // 调用函数
-            //     callback();
-            // }
-            callback && callback();
-        }
-        // 把每次加1 这个步长值改为一个慢慢变小的值  步长公式：(目标值 - 现在的位置) / 10
-        obj.style.left = obj.offsetLeft + step + 'px';
-
-    }, 15);
-};
