@@ -130,6 +130,33 @@ export class NewSwiper {
             }
         };
     }
+    getImageListNew() {
+        const p: Promise<string> = new Promise((resolve, reject) => {
+            const xhr = new XMLHttpRequest()
+            xhr.open('GET', 'https://tuzkiss-1257228966.cos.ap-shanghai.myqcloud.com/data')
+            xhr.send();
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    if ((xhr.status >= 20 && xhr.status < 300) || xhr.status == 304) {
+                        resolve(xhr.responseText);
+                    } else {
+                        reject(xhr.status);
+                    }
+                }
+            }
+        }
+        )
+        return p.then((value: string) => {
+            const alldata: IAllData = JSON.parse(value);//这里设置 data 为 any 类型是因为往往后端数据不确定，接口不方便定义               
+            const list: IList[] = alldata.data.list;
+        },
+            reason => {
+                alert("Request was unsuccessful: " + reason);
+            }
+
+        )
+
+    }
     circleChange() {
         // 先清除其余小圆圈的current类名
         for (let i = 0; i < this.ol.children.length; i++) {

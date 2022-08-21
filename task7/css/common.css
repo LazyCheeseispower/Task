@@ -5,76 +5,152 @@
 }
 
 .bw {
+    height: 64px;
     width: 1471px;
     margin: 0 auto;
-    padding: 24px;
+    padding: 0px 24px;
+    display: flex;
+    align-items: center;
 }
 
 .fl {
     float: left;
-    margin-right: 15px;
+    margin-right: 30px;
 }
 
 .fm {
     float: left;
+    width: 500px;
+    height: 38px;
+}
+
+.fm :hover {
+    background-color: rgba(255, 255, 255, 1);
+}
+
+.fm .search:focus {
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.fm #search-button {
+    width: 32px;
+    height: 32px;
+    position: absolute;
+    top: 5.4px;
+    bottom: 4px;
+    left: 461px;
+    right: 7px;
+    display: block;
+}
+
+.fm #search-button :hover {
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.fm #search-button button :hover {
+    background-color: rgba(0, 0, 0, 0);
 }
 
 .fr {
+    display: block;
     float: right;
+    margin-left: 10px;
+    width: 466px;
+    height: 50px;
+
 }
 
 /* 快捷导航模块 */
-.top{
-    height:155px;
+.top {
+    height: 155px;
 }
-.top-image{
-    float:left;
 
+.top-image {
+    float: left;
+    display: block;
+    height: 155px;
+    width: 1520px;
 }
+
 .shortcut {
     height: 64px;
     /* background-color: #f1f1f1 ; */
-    background-color:rgba(0,0,0,0);
+    background-color: rgba(0, 0, 0, 0);
     position: fixed;
 }
 
 .shortcut ul li {
     float: left;
     font-size: 14px;
+    height: 64px;
+}
+
+.shortcut ul li a {
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+}
+
+
+@keyframes float {
+    0% {
+        transform: translateY(-2px);
+    }
+
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+.shortcut ul :not(:first-child, :last-child) :hover {
+    animation-name: float;
+    animation-duration: 0.5s;
+    animation-timing-function: ease;
+    animation-iteration-count: 1;
 }
 
 .shortcut ul li span {
     margin-right: 15px;
 }
 
-.shortcut ul li #jianianhua {
-    display:block;
-    width: 54px;
+.shortcut ul li #last-li-span {
+    margin-right: 0px;
 }
 
-.shortcut ul li svg {
+.shortcut ul li #svg0 {
     margin-right: 6px;
 }
 
+.shortcut ul li #svg1 {
+    margin-top: -1px;
+    margin-right: 5px;
+}
+
 .search {
-    width: 384px;
-    height: 38px;
+    width: 446px;
+    height: 40px;
     padding: 0px 48px 0px 4px;
     border: 1px solid;
     border-radius: 8px;
     position: fixed;
-    top:16px;
-    background-color: #f1f1f1;
+    top: 12px;
+    background-color: rgba(255, 255, 255, 0.75);
+    margin: 0px 3.6px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
 
+
 .search input {
-    width: 384px;
+    width: 446px;
     height: 32px;
     padding: 0px 8px;
-    border: 2px solid #f1f1f1;
+    border: 2px solid rgba(255, 255, 255, 0);
     border-radius: 6px;
-    background-color: #f1f1f1;
-
+    background-color: rgba(255, 255, 255, 0);
 }
 
 .search button {
@@ -83,9 +159,421 @@
     padding: 0px;
     border: 0px;
     border-radius: 6px;
+    background-color: rgba(255, 255, 255, 0);
+}
+
+.search .search-panel {
+    display: none;
+}
+
+.search-focus {
+    width: 446px;
+    height: 284px;
+    padding: 0px 48px 0px 4px;
+    border: 1px solid rgb(227, 229, 231);
+    border-radius: 8px;
+    position: fixed;
+    top: 12px;
+    background-color: rgba(255, 255, 255, 0.9);
+    margin: 0px 3.6px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.search-focus input {
+    width: 446px;
+    height: 32px;
+    padding: 0px 8px;
+    border: 2px solid rgba(255, 255, 255, 0);
+    border-radius: 6px;
     position: absolute;
-    left: 397px;
-    top: 3px;
-    bottom: 3px;
-    right: 7px;
+    top: 4px;
+}
+
+.fm .search-focus input {
+    background-color: rgba(7, 7, 7, 0.105);
+}
+
+.search-focus button {
+    width: 32px;
+    height: 32px;
+    padding: 0px;
+    border: 0px;
+    border-radius: 6px;
+    background-color: rgba(255, 255, 255, 0);
+}
+
+.search-focus .search-panel {
+    border: 1px solid rgb(227, 229, 231);
+    border-top: 0px;
+    border-radius: 0px 0px 8px 8px;
+    padding-top: 13px;
+    padding-bottom: 16px;
+    width: 498px;
+    height: 214px;
+    position: absolute;
+    left: -1px;
+    top: 40px;
+    background-color: white;
+    display: block;
+}
+
+.search-focus .search-panel .trending {
+    width: 466px;
+    height: 214px;
+    padding: 0px 16px;
+}
+
+.search-focus .search-panel .trending .title {
+    font-size: 16px;
+    height: 24px;
+    color: rgb(24, 25, 28)
+}
+
+/* .shortcut  ul li {
+    float: left;
+    font-size: 14px;
+    height: 50px;
+} */
+
+.head-channel {
+    width: 1391px;
+    height: 110px;
+    padding: 0px 64px;
+    display: flex;
+    align-items: center;
+}
+
+.channel-icons {
+    width: 210px;
+    height: 72px;
+    margin-right: 8px;
+    display: flex;
+    flex-direction: row;
+}
+
+.channel-icons a {
+    width: 46px;
+    height: 72px;
+    margin-right: 24px;
+    color: black;
+    font-size: 14px;
+}
+
+.channel-icons a div {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background-color: rgb(240, 119, 117);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 6px;
+}
+
+.channel-icons a:last-child div {
+    background-color: rgb(89, 202, 115);
+}
+
+.channel-icons a svg {
+    width: 25px;
+    height: 25px;
+}
+
+.channel-icons a img {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+}
+
+.channel-icons a span {
+    width: 46px;
+    height: 20px;
+    display: block;
+    text-align: center;
+    align-items: center;
+}
+
+.right-channel {
+    width: 1173px;
+    height: 66px;
+    display: flex;
+}
+
+.channel-items__left {
+    width: 902px;
+    height: 66px;
+    padding-right: 30px;
+    border-right: 1px solid rgb(227, 229, 231);
+    display: grid;
+    grid-template-rows: repeat(2, 1fr);
+    grid-auto-flow: column;
+    grid-gap: 10px;
+    grid-template-columns: repeat(11, 1fr);
+}
+
+.channel-items__left a {
+    height: 26px;
+    border: 1px solid rgb(241, 242, 243);
+    border-radius: 6px;
+    color: rgb(97, 102, 109);
+    background-color: rgb(246, 247, 248);
+    text-align: center;
+    line-height: 26px;
+    font-size: 14px;
+    letter-spacing: 2px;
+}
+
+.channel-items__left a:hover {
+    background-color: rgb(227, 229, 231);
+}
+
+.channel-items__right {
+
+    height: 66px;
+    display: grid;
+    grid-template-rows: repeat(2, 1fr);
+    grid-auto-flow: column;
+    grid-row-gap: 10px;
+    width: 240px;
+
+}
+
+.channnel-link__right {
+    height: 28px;
+    font-size: 14px;
+    color: rgb(97, 102, 109);
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.channnel-link__right svg {
+    height: 20px;
+    width: 20px;
+    margin-right: 4px;
+}
+
+.channnel-link__right span {
+    display: block;
+    height: 17.5px;
+    letter-spacing: 2px;
+    text-align: center;
+    line-height: 17.5px;
+}
+
+.channnel-link__right:nth-child(n+5) span {
+    letter-spacing: 0px;
+}
+
+.main {
+    width: 1391px;
+    padding: 0px 64px;
+}
+
+.main_section {
+    width: 1391px;
+    height: 470px;
+    margin-bottom: 24px;
+}
+
+.main__2-line {
+    width: 1391px;
+    height: 470px;
+    display: grid;
+    grid-template-rows: repeat(2, 1fr);
+    grid-template-columns: repeat(5, 1fr);
+    grid-auto-flow: column;
+    grid-gap: 20px 12px;
+}
+
+.main__2-line div {
+    /* background-color: rgb(97, 102, 109); */
+    border-radius: 6px;
+}
+
+.main__2-line .swiper {
+    background-color: white;
+
+}
+
+.swiper {
+    grid-column: 1 / span 2;
+    grid-row: 1 / span 2;
+}
+
+.main__2-line .swiper-picture {
+    height: 310px;
+    background-color: rgb(0, 0, 0);
+
+}
+
+.main__2-line .swiper-bottom {
+    height: 86px;
+    background-color: rgb(0, 0, 0);
+    position: relative;
+}
+
+.swiper div:first-child {
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+
+.swiper div:last-child {
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+}
+
+.swiper-picture {
+    position: relative;
+    width: 549.2px;
+    overflow: hidden;
+
+}
+
+.swiper-picture ul {
+    width: 1000%;
+    height: 100%;
+    position: absolute;
+}
+
+.swiper-picture li {
+    float: left;
+}
+
+.swiper-picture img {
+    width: 549.2px;
+    height: 310px;
+}
+
+.swiper-button {
+    width: 68px;
+    height: 28px;
+    position: absolute;
+    top: 16.2px;
+    right: 15px;
+}
+
+.main__2-line .swiper-bottom .swiper-button {
+    background-color: rgba(0, 0, 0, 0);
+    display: flex;
+}
+
+.swiper-bottom .swiper-ol {
+    position: absolute;
+    bottom: 22px;
+    left: 15px;
+    display: flex;
+    align-items: center;
+}
+
+.swiper-bottom .swiper-ol li {
+    float: left;
+    width: 8px;
+    height: 8px;
+    background-color: rgb(227, 229, 231);
+    margin: 0 3.5px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.swiper-bottom .swiper-ol .current {
+
+    width: 12px;
+    height: 12px;
+    background-color: #fff;
+}
+
+.swiper-button button {
+    width: 28px;
+    height: 28px;
+    background-color: rgba(227, 229, 231, 0.25);
+    border-radius: 8px;
+    border: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.swiper-button button:first-child {
+    margin-right: 12px;
+}
+
+.swiper-button button a {
+    display: block;
+    width: 12px;
+    height: 12px;
+    line-height: 12px;
+}
+
+.card {
+    width: 268.6px;
+    height: 225px;
+}
+
+.card .card-picture {
+    width: 268.6px;
+    height: 151px;
+    background-color: gray;
+    position: relative;
+}
+
+.card .card-title {
+    height: 44px;
+    padding-right: 16px;
+    background-color: white;
+
+}
+
+.card a {
+    color: #18191C;
+}
+
+.roll-btn-warp {
+    width: 40px;
+    height: 79.4px;
+    position: absolute;
+    top: 265px;
+    right: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.roll-btn-warp .roll-btn {
+    width: 40px;
+    height: 79.4px;
+    padding: 9px;
+    border: 1px solid rgb(227, 229, 231);
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    font-size: 12px;
+}
+
+.card .card-picture .card-img {
+    width: 268.6px;
+    height: 151px;
+
+}
+
+.card h3 {
+    margin-top: 10px;
+    color: #18191C;
+    overflow: hidden;
+}
+
+.card .card-information {
+    color: gray;
+}
+
+.card video {
+    position: absolute;
+    left: 0px;
+    top: 0px;
 }

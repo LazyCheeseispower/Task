@@ -261,10 +261,8 @@
 
                 </div>
                 <div class="card">
-
                     <div class="card-picture"></div>
                     <h3 class="card-title"></h3>
-
                     <div class="card-information"></div>
                 </div>
                 <div class="card">
@@ -301,8 +299,6 @@
         </section>
     </div>
     <script>
-        var alldata = [];
-        sendAJAX('https://api.bilibili.com/x/web-interface/index/top/rcmd?fresh_type=3&version=1&ps=10&fresh_idx=1&fresh_idx_1h=1&homepage_ver=1');
         window.addEventListener('load', function () {
             var search = document.getElementById("search");
             var input = document.getElementById("search-input");
@@ -403,64 +399,20 @@
 
             var roll_btn = document.querySelector(".roll-btn");
 
-            var number = 0;
-
-            var cards = document.querySelectorAll(".card")
-            var cards_pics = document.querySelectorAll(".card-picture")
-            //console.log(cards_pics[0]);
             roll_btn.onclick = function () {
-
-                var data = alldata.data;
-                var item = data.item;
-
-                var arr0 = [];
-                var arr1 = [];
-                var arr2 = [];
-                var arr3 = [];
-                for (var i = 0; i <= 5; i++) {
-                    arr0[i] = item[i];
-                }
-                for (var i = 6; i <= 11; i++) {
-                    arr1[i - 6] = item[i];
-                }
-                for (var i = 12; i <= 17; i++) {
-                    arr2[i - 12] = item[i];
-                }
-                for (var i = 18; i <= 23; i++) {
-                    arr3[i - 18] = item[i];
-                }
-
-                var arr = [arr0, arr1, arr2, arr3];
-
-                if (number == 4) {
-                    number = 0;
-                }
-
-                //console.log(arr[number][0].pic);
-
-                for (var i = 0; i < arr[number].length; i++) {
-                    var html = "";
-                    html = "<a href='" + arr[number][i].uri + "' target='_blank'><div class='card-picture'><img style='width: 268.6px;height: 151px;border-radius:6px;'src='" + arr[number][i].pic + "'><video preload='auto' src=" + arr[number][i].uri + "></div><h3 class='card-title'>" + arr[number][i].title + "</h3></a><div class='card-information'>" + arr[number][i].owner.name + "</div>"
-                    cards[i].innerHTML = html;
-                }
-
-                //console.log(cards[0]);
-
-
-
-
-                number++;
-
-
-
-
-            }
+                roll('https://api.bilibili.com/x/web-interface/index/top/rcmd?fresh_type=3&version=1&ps=10&fresh_idx=1&fresh_idx_1h=1&homepage_ver=1');
+                           }
 
 
 
         })
 
-
+        function roll(url) {
+            sendAJAX(url);
+            data = alldata.data;
+            item=data.item;
+            console.log(item);
+        }
 
         function sendAJAX(url) {
             var p = new Promise((resolve, reject) => {
