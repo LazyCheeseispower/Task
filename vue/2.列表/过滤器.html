@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../src/js/vue.js"></script>
+    <script src="../src/js/dayjs.min.js"></script>
+</head>
+
+<body>
+    <div class="root">
+        <h1>显示格式化的时间</h1>
+        <h2>现在的时间是{{fmtTime}}</h2>
+        <h2>现在的时间是{{fmtTime | mySlice}}</h2>
+    </div>
+
+    <script>
+        Vue.filter("mySlice", function (value) {
+            return value.slice(0, 2)
+        })
+        const vm = new Vue({
+            el: ".root",
+            data: {
+
+
+            },
+            computed: {
+                fmtTime() {
+                    return dayjs(Date.now()).format('YYYY-MM-DD HH:mm:ss')
+                }
+            },
+            filters: {
+                mySlice(value) {
+                    return value.slice(0, 4)
+                }
+            }
+        })
+    </script>
+
+</body>
+
+</html>

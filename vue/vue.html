@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="src/js/vue.js"></script>
+</head>
+
+<body>
+    <div class="root">
+        姓<input type="text" v-model="firstname"><br>
+        名<input type="text" v-model="lastname"><br>
+        全名：<span>{{fullname}}</span>
+    </div>
+    <script>
+        Vue.config.productionTip = false// 取消提示不起作用，已在 vue.js 修改
+
+        const vm = new Vue({
+            el: '.root',
+            data: {
+                firstname: '李',
+                lastname: '四'
+            },
+            computed: {
+                fullname: {
+                    get() {
+                        return this.firstname + '-' + this.lastname
+                    },
+                    set(value) {
+                        let arr = value.split('-')
+                        this.firstname = arr[0]
+                        this.lastname = arr[1]
+                    }
+
+                }
+            }
+
+        })
+    </script>
+</body>
+
+</html>

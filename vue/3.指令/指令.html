@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../src/js/vue.js"></script>
+</head>
+
+<body>
+    <div class="root">
+        <h2>当前的 n 值是<span v-text="n"></span></h2>
+        <h2>放大 10 倍的 n 值是<span v-big="n"></span></h2>
+        <button @click="n++">点我 n ++</button>
+    </div>
+
+    <script>
+
+        const vm = new Vue({
+            el: ".root",
+            data: {
+                n: 1,
+            },
+            directives: {
+                big(element, binding) {
+                    console.log('big');
+                    element.innerText = binding.value * 10
+                }//模板被解析时
+                // big: {
+                //     bind() {
+                //         element.innerText = binding.value * 10
+                //     },
+                //     inserted() {
+
+                //     },
+                //     update() {
+                //         element.innerText = binding.value * 10
+                //     }
+                // }
+            }
+        })
+    </script>
+
+</body>
+
+</html>
