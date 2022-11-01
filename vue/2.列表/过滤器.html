@@ -15,6 +15,8 @@
         <h1>显示格式化的时间</h1>
         <h2>现在的时间是{{fmtTime}}</h2>
         <h2>现在的时间是{{fmtTime | mySlice}}</h2>
+        <h2 :style="{opacity:o}">欢迎学习 Vue </h2>
+        <button @click="stop">点击停止变换</button>
     </div>
 
     <script>
@@ -24,13 +26,31 @@
         const vm = new Vue({
             el: ".root",
             data: {
-
-
+                nowTime: Date.now(),
+                o: 1,
             },
             computed: {
                 fmtTime() {
-                    return dayjs(Date.now()).format('YYYY-MM-DD HH:mm:ss')
+                    return dayjs(this.nowTime).format('YYYY-MM-DD HH:mm:ss')
                 }
+            },
+            methods: {
+                stop() {
+                    this.$destroy()
+                }
+            },
+            mounted() {
+                console.log("mounted");
+                this.timer = setInterval(() => {
+                    this.o -= 0.01
+                    if (this.o <= 0) this.o = 1
+                }, 16)
+                setInterval(() => {
+                    this.nowTime = Date.now()
+                }, 1000)
+            },
+            beforeDestroy() {
+                clearInterval(this.timer)
             },
             filters: {
                 mySlice(value) {

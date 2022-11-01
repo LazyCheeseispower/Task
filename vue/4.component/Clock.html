@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../src/js/vue.js"></script>
+    <script src="../src/js/dayjs.min.js"></script>
+</head>
+
+<body>
+    <div class="root">
+
+    </div>
+
+    <script>
+        const author = Vue.extend({
+            template: `
+            <div>
+            <h2>作者名字 : {{name}}</h2>
+            <h2>作者年龄 : {{age}}</h2>
+            </div>
+            `,
+            data() {
+                return {
+                    name: "Lazy",
+                    age: 23
+
+                }
+            }
+        })
+        const timeshow = Vue.extend({
+            template: `
+            <div>
+            <h2>现在的时间是{{fmtTime}}</h2>
+            <author></author>
+        </div>
+                 `
+            ,
+            data() {
+                return {
+                    nowTime: Date.now(),
+                }
+            },
+            computed: {
+                fmtTime() {
+                    return dayjs(this.nowTime).format('YYYY-MM-DD HH:mm:ss')
+                }
+            },
+            mounted() {
+                setInterval(() => { this.nowTime = Date.now() }, 1000)
+            },
+            components: {
+                author
+            }
+        })
+        const app = Vue.extend({
+            template: `<timeshow></timeshow>`,
+            components: {
+                timeshow
+            }
+        })
+        const vm = new Vue({
+            el: ".root",
+            template: `<app></app>`,
+            components: {
+                app
+            }
+        })
+        function Demo() {
+            this.a = 1
+            this.b = 2
+        }
+        const d = new Demo()
+        // const vm = new Vue({
+        //     el: ".root",
+        //     data: {
+        //         nowTime: Date.now(),
+        //         o: 1,
+        //     },
+        //     computed: {
+        //         fmtTime() {
+        //             return dayjs(this.nowTime).format('YYYY-MM-DD HH:mm:ss')
+        //         }
+        //     },
+        //     methods: {
+        //         stop() {
+        //             this.$destroy()
+        //         }
+        //     },
+        //     mounted() {
+        //         console.log("mounted");
+        //         this.timer = setInterval(() => {
+        //             this.o -= 0.01
+        //             if (this.o <= 0) this.o = 1
+        //         }, 16)
+        //         setInterval(() => {
+        //             this.nowTime = Date.now()
+        //         }, 1000)
+        //     },
+        //     beforeDestroy() {
+        //         clearInterval(this.timer)
+        //     },
+        //     filters: {
+        //         mySlice(value) {
+        //             return value.slice(0, 4)
+        //         }
+        //     }
+        // })
+    </script>
+
+</body>
+
+</html>

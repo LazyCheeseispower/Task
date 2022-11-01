@@ -1,61 +1,62 @@
-# 22-10-31 日报
+# 22-11-1 日报
 ## 学习
 ### 学习内容
 #### 一些知识点
-- MVVM 模型 :
-- Model 是 data 中的数据
-- View 视图，是模板代码
-- ViewModel 视图模型，Vue 的实例
-
-- 数据代理，通过一个对象操作另外一个对象的属性
-
-- object.defineProperty() 和直接在对象内定义的不同在于 枚举/修改/删除(三个都可以代码修改) 面对对象的思想，对象上有 set(value) 和 get()
+- outerHTML 和 innerHTML 
+- 组件 (component)：实现应用中局部功能代码和资源的集合
+- 三种暴露方式： 分别、统一、默认
 
 
-#### 一些待完善知识点
-- methods 
-- computed
-- watch
-- 绑定 class 和 style
-- filters
-#### 指令
-- v-on ：onclick 绑定点击事件，简写为 @
-- v-bind : 单向绑定  将 Vue 中的内容加载到页面上
-- v-model ： 双向绑定  
-- v-show ：会渲染 CSS 添加 display:none  (频繁时使用)
-- v-if ：不会渲染在页面上 
-- v-else-if
-- v-for : 循环遍历 example:  v-for="(p,index) in persons :key="index" 这边的 key 值使用了 index 值
-- v-text / v-html ：innerText / innerHTML (有提到 cookie ，增加一点点认知)
-- v-cloak(没有值) : 实例创建完毕并接管容器后，会删除，可以和 CSS 的属性选择器 [] 一起使用解决页面显示的问题
-- v-once(没有值) : 所在节点初次渲染后就将节点视为静态
-- v-pre(没有值) : 所在节点跳过编译过程
-
-#### 事件修饰符
-- prevent : 阻止默认事件
-- stop : 阻止事件冒泡
-- once : 事件只触发一次
-- capture : 使用事件的捕获模式
-- self : 只有 event.target 是当前操作的元素才触发事件
-- passive : 事件的默认行为立即执行
-
-#### 键盘事件
-- @keyup 未提供的可以通过 key 值绑定， ctrl / alt / shift / meta 在这种情况先按下其他键随后释放其他键，才会触发
-- @keydown 回车enter 删除 delete 退出 esc 空格 space 换行 tap  
-
-
-- Vue.set(target,propertyName/index,value) && vm.$set(target,propertyName/index,value) 给后添加的属性做响应式
-- 数组的七个方法  pop()/push()/shift()/unshift()/sort()/reserve()/splice() 能够直接改变原数组，在 Vue 中对这七个方法做了包装能够直接监测
-- 数组的其他方法可以用一个新变量去承接，也能够达到同样的效果
+- function Demo(){
+-   this.a = 1
+-   this.b = 2
+- }
+- const d = new Demo()
+- Demo.prototype === d.__proto__ // Demo 的显式原型和 d的隐式原型指向同一个原型对象，使用过程中在显式原型添加，可以省略隐式原型直接查找 
 
 #### 生命周期
+- beforeCreate : 初始化生命周期和事件，数据代理还未开始。 (无法通过 vm 访问到 data 中的数据， methods 当中的方法)
+- created : 数据监测和数据代理  (可以通过 vm 访问到 data 中的数据， methods 当中的方法)
+- beforeMount : Vue 开始解析模板，生成虚拟 DOM ，页面还不能显示解析好的内容 (此时页面显示的是未经 Vue 编译的 DOM 结构，所有对 DOM 的操作最终都不奏效)
+- mounted : 将内存中的虚拟 DOM 转为真实 DOM 插入页面 (此时页面显示的是经 Vue 编译的 DOM 结构，所有对 DOM 的操作都奏效。至此初始化结束，一般在这里开启定时器、发送网络请求、订阅消息、绑定自定义事件等初始化操作)
 
+- 更新：
+- beforeUpdate : 数据是新的但是页面是旧的，页面尚未和数据保持同步 (操作数据也无效)
+- updated : 根据新数据生成新的 DOM ，与旧 DOM 比较完成更新，Model -> View 的更新。数据、页面是新的，页面和数据保持同步
 
+- 销毁；
+- beforeDestroy : vm 上的都还能用，一般在此关闭定时器、取消订阅消息、解绑自定义事件等收尾操作
+- destroy
+
+#### 组件化编程
+- 非单文件组件
+
+- 创建组件关键字 Vue.extend()  简写时省略该关键字直接写配置项   HTML 用 template 写，注意 template 中只能有一个根标签，data 必须写成函数，闭包思想
+- 注册组件 components (局部注册)   Vue.components (全局注册)
+- 编写组件标签
+
+- 组件的嵌套 ：注意被需要的先写，在模板中要写被引用的标签
+
+- 关于 VueComponent:
+- 1.组件本质是一个名为 VueComponent 的构造函数,且不是由程序员定义的，是 Vue.extend 生成的
+- 2.我们只需要写 < ></ > 或者 < /> 就可以，是 Vue 在解析时会帮我们创建该组件的实例对象，即 new VueComponent(options)
+- 3.特别注意：每次调用 Vue.extend ,返回的都是全新的 VueComponent !!!
+- 4.关于 this 的指向：
+- (1).组件配置中：
+- data 函数、method 中的函数、watch 中的函数、computed 中的函数 它们的 this 均指向 【VueComponent 的实例对象】
+- (2).new Vue(options)配置中：
+- data 函数、method 中的函数、watch 中的函数、computed 中的函数 它们的 this 均指向 【Vue 的实例对象】
+- 5.VueComponent 的实例对象 可以称为 vc
+
+- 定义的只是一个构造函数，什么时候创建的实例对象，是在标签写的时候，Vue 帮我们解析创建了实例对象
+
+- 一个重要的内置关系
+- VueComponent.prototype.__proto__ === Vue.prototype  这样可以让 组件实例对象 (vc) 访问到 Vue 原型上的属性和方法 
 ### 一些技巧
-- 使用 label 标签包裹文字使文字与其他元素关联
+
 
 ### 学习问题
-- 使用或者不使用 箭头函数 都是为了让 this 能够指向实例化的 Vue 对象，但是具体使用在自己写的代码里竟然没有
+- 写非单文件组件的时候，命名方式用小驼峰命名法报错了  (单个单词可以首字母大写，多个单词都小写用 - 连接，大驼峰加脚手架)
 - 学到 Date.now() 可以利用第三方库封装的函数，将时间戳转换为具体时间，但是 computed 时间没有自己更新，用 watch 侦听？ 
 - 那么问题来了， methods / computed / watch 都是在什么时候回调的
 - 边学边忘
