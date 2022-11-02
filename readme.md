@@ -1,62 +1,58 @@
-# 22-11-1 日报
+# 22-11-2 日报
 ## 学习
 ### 学习内容
 #### 一些知识点
-- outerHTML 和 innerHTML 
-- 组件 (component)：实现应用中局部功能代码和资源的集合
-- 三种暴露方式： 分别、统一、默认
+- ctrl + ` 开启 vscode 的终端
+- vue.runtime.xxx.js 是没有模板编译器的，不能 使用 template ，这种情况使用 render ：h => h(App)
 
+#### vue.config.js配置文件
+- 使用 vue inspect > output.js 可以查看 Vue 的默认配置
+- 使用 vue.config.js 可以对脚手架进行个性化定制
 
-- function Demo(){
--   this.a = 1
--   this.b = 2
-- }
-- const d = new Demo()
-- Demo.prototype === d.__proto__ // Demo 的显式原型和 d的隐式原型指向同一个原型对象，使用过程中在显式原型添加，可以省略隐式原型直接查找 
+#### 组件标签
+- 使用 id 获得的是组件的 DOM 元素
+- 使用 ref 获得的是子组件的实例对象，注意的是，获得该标签 (this.$refs.xxx) 就是一个 component 实例对象
+- 使用 ref 可以在 html 标签上，获取 DOM 元素
 
-#### 生命周期
-- beforeCreate : 初始化生命周期和事件，数据代理还未开始。 (无法通过 vm 访问到 data 中的数据， methods 当中的方法)
-- created : 数据监测和数据代理  (可以通过 vm 访问到 data 中的数据， methods 当中的方法)
-- beforeMount : Vue 开始解析模板，生成虚拟 DOM ，页面还不能显示解析好的内容 (此时页面显示的是未经 Vue 编译的 DOM 结构，所有对 DOM 的操作最终都不奏效)
-- mounted : 将内存中的虚拟 DOM 转为真实 DOM 插入页面 (此时页面显示的是经 Vue 编译的 DOM 结构，所有对 DOM 的操作都奏效。至此初始化结束，一般在这里开启定时器、发送网络请求、订阅消息、绑定自定义事件等初始化操作)
+#### 配置项 props 
+- 功能：让组件接收外部传过来的数据
+- (1)传递数据
+- <demo name="xxx"/>
+- (2)接收数据
+- 数组 
+- props:["name"]  简单接受
+- props:{ 
+    name:{
+        type:String,
+        required:true,
+        default:"老王"
+    }
+- } 接受同时对数据限制 还能+默认值的指定 default + 必要性的限制 required
 
-- 更新：
-- beforeUpdate : 数据是新的但是页面是旧的，页面尚未和数据保持同步 (操作数据也无效)
-- updated : 根据新数据生成新的 DOM ，与旧 DOM 比较完成更新，Model -> View 的更新。数据、页面是新的，页面和数据保持同步
+- props 是只读的，vue 底层会监测你对 props 的修改,如果发生了修改，就会发出警告，若业务需求确实需要修改，那么请复制 props 的内容到 data 中一份，然后去修改 data 中的数据 
+#### mixin 混合
+- 优先级低于原有数据，生命周期函数都会存在优先级依然低
+- 使用方法：
+- 1.定义混合 maxin.js 文件
+- 2.使用混入 
+-            全局混入： Vue.mixin(xxx)
+-            局部混入:  mixins[]
 
-- 销毁；
-- beforeDestroy : vm 上的都还能用，一般在此关闭定时器、取消订阅消息、解绑自定义事件等收尾操作
-- destroy
-
-#### 组件化编程
-- 非单文件组件
-
-- 创建组件关键字 Vue.extend()  简写时省略该关键字直接写配置项   HTML 用 template 写，注意 template 中只能有一个根标签，data 必须写成函数，闭包思想
-- 注册组件 components (局部注册)   Vue.components (全局注册)
-- 编写组件标签
-
-- 组件的嵌套 ：注意被需要的先写，在模板中要写被引用的标签
-
-- 关于 VueComponent:
-- 1.组件本质是一个名为 VueComponent 的构造函数,且不是由程序员定义的，是 Vue.extend 生成的
-- 2.我们只需要写 < ></ > 或者 < /> 就可以，是 Vue 在解析时会帮我们创建该组件的实例对象，即 new VueComponent(options)
-- 3.特别注意：每次调用 Vue.extend ,返回的都是全新的 VueComponent !!!
-- 4.关于 this 的指向：
-- (1).组件配置中：
-- data 函数、method 中的函数、watch 中的函数、computed 中的函数 它们的 this 均指向 【VueComponent 的实例对象】
-- (2).new Vue(options)配置中：
-- data 函数、method 中的函数、watch 中的函数、computed 中的函数 它们的 this 均指向 【Vue 的实例对象】
-- 5.VueComponent 的实例对象 可以称为 vc
-
-- 定义的只是一个构造函数，什么时候创建的实例对象，是在标签写的时候，Vue 帮我们解析创建了实例对象
-
-- 一个重要的内置关系
-- VueComponent.prototype.__proto__ === Vue.prototype  这样可以让 组件实例对象 (vc) 访问到 Vue 原型上的属性和方法 
+#### plugins 插件
+- plugins.js 中去定义一个对象 包含的参数 install= function(Vue){}
+- 使用方法：
+- import plugins from "plugins.js"
+- Vue.us(plugins)
 ### 一些技巧
+- 如何引入第三方库，下面为其中一种方法
+- 1.npm 安装 ： 
+-   npm install dayjs --save
+- 2.main.js引入挂载到全局 ：
+-   import dayjs from "dayjs"
+-   Vue.prototype.$dayjs = dayjs;
+- 3.按需在组件中调用 ：
+-   console.log(this.$dayJs().format('YYYY-MM-DD')) // 2022-05-07
 
 
 ### 学习问题
-- 写非单文件组件的时候，命名方式用小驼峰命名法报错了  (单个单词可以首字母大写，多个单词都小写用 - 连接，大驼峰加脚手架)
-- 使用 mounted 添加计时器完成了 时间的实时显示，有没有更多的实现方式 
-- 在跟着联系的过程中 Vue.CLI 报错，暂时无法解决该问题
-- 边学边忘
+- vc 指的是哪个需要清晰
