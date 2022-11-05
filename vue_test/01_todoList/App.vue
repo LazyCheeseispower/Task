@@ -2,7 +2,7 @@
   <div id="root">
     <div class="todo-container">
       <div class="todo-wrap">
-        <TestHeader @addTodo="addTodo" />
+        <TestHeader :addTodo="addTodo" />
         <TestList
           :todos="todos"
           :checkTodo="checkTodo"
@@ -10,7 +10,7 @@
         />
         <test-footer
           :todos="todos"
-          ref="Footer"
+          :checkAllTodos="checkAllTodos"
           :clearAllTodos="clearAllTodos"
         />
       </div>
@@ -68,10 +68,6 @@ export default {
       },
     },
   },
-  mounted(){
-     this.$refs.Footer.$on('checkAllTodos',this.checkAllTodos)
-
-  }
 };
 </script>
 
