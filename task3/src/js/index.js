@@ -77,6 +77,7 @@ window.addEventListener('load', function () {
                 num = 0;
             }
             num++;
+            console.log(ul); 
             animate(ul, -num * focusWidth, function () {
                 flag = true; // 打开节流阀
             });

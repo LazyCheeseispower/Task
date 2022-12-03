@@ -1,122 +1,131 @@
 <template>
-  <div id="root">
-    <div class="todo-container">
-      <div class="todo-wrap">
-        <TestHeader @addTodo="addTodo" />
-        <TestList
-          :todos="todos"
-          :checkTodo="checkTodo"
-          :deleteTodo="deleteTodo"
-        />
-        <test-footer
-          :todos="todos"
-          ref="Footer"
-          :clearAllTodos="clearAllTodos"
-        />
-      </div>
-    </div>
+  <div>
+    <Shortcut />
+    <Top :top="top" />
+    <!-- <Swiper
+      :swiperList="swiperList"
+      :swiperHeight="swiperHeight"
+      :swiperWidth="swiperWidth"
+    /> -->
   </div>
 </template>
 
 <script>
-import TestHeader from "./components/TestHeader.vue";
-import TestFooter from "./components/TestFooter.vue";
-import TestList from "./components/TestList.vue";
+import Swiper from "./components/Swiper.vue";
+import Top from "./components/Top.vue";
+import Shortcut from "./components/Shortcut.vue";
 export default {
   name: "App",
-  components: {
-    TestHeader,
-    TestFooter,
-    TestList,
-  },
+  components: { Swiper, Top, Shortcut },
   data() {
     return {
-      todos: JSON.parse(localStorage.getItem("todos")) || [],
+      swiperList: [
+        {
+          url: "https://i0.hdslb.com/bfs/banner/babaa2d26cde087aa732b275b72368aa84e24a15.png@976w_550h_1c.webp",
+        },
+        {
+          url: "https://i0.hdslb.com/bfs/banner/68ddfec857279e062664b8d9029525296c9a31fe.jpg@976w_550h_1c.webp",
+        },
+        {
+          url: "https://i0.hdslb.com/bfs/banner/968c635ce7d0ffe8836bc401d53acb7b3aabad11.png@976w_550h_1c.webp",
+        },
+        {
+          url: "https://i0.hdslb.com/bfs/banner/317606fcc8dfcc25e19faba47e87c2a011cdad53.jpg@976w_550h_1c.webp",
+        },
+        {
+          url: "https://i0.hdslb.com/bfs/banner/959db2e9d682eaa41809b110265ec17d1eb5c29e.jpg@976w_550h_1c.webp",
+        },
+        {
+          url: "https://i0.hdslb.com/bfs/banner/b24110d275163456f4c5586793ee343dee96ee6c.jpg@976w_550h_1c.webp",
+        },
+        {
+          url: "https://i0.hdslb.com/bfs/banner/719516ee5a1485e2318ec4db675114c473d4f6cb.png@976w_550h_1c.webp",
+        },
+        {
+          url: "https://i0.hdslb.com/bfs/sycp/creative_img/202207/8c0f6ca1522358fb6198f4e9e0911952.jpg@976w_550h_1c.webp",
+        },
+        {
+          url: "https://i0.hdslb.com/bfs/banner/2433182d3292d6b9d88c44748c6de7cad082cf5c.png@976w_550h_1c.webp",
+        },
+      ],
+      swiperHeight: 450,
+      swiperWidth: 700,
+      top: "https://i0.hdslb.com/bfs/archive/956de2627e2cc1a9da53ea1d8762cea33e8ea6e5.png@3840w_360h_1c_90q.webp",
+      middle: {
+        middleLeft: [
+          {
+            id: "1",
+            title: "开学前一小时补40篇日记",
+            isNew: true,
+            isHot: false,
+          },
+          {
+            id: "2",
+            title: "刘畊宏回应卖假货",
+            isNew: false,
+            isHot: false,
+          },
+          {
+            id: "3",
+            title: "肖秀荣1000题1小时速成",
+            isNew: true,
+            isHot: false,
+          },
+          {
+            id: "4",
+            title: "江西上空现不明飞行物",
+            isNew: false,
+            isHot: true,
+          },
+          {
+            id: "5",
+            title: "中俄将在日本海联合演习",
+            isNew: false,
+            isHot: false,
+          },
+        ],
+        middleRight: [
+          {
+            id: "6",
+            title: "边角料零食是智商税吗",
+            isNew: true,
+            isHot: false,
+          },
+          {
+            id: "7",
+            title: "初音未来15周年",
+            isNew: false,
+            isHot: false,
+          },
+          {
+            id: "8",
+            title: "必胜客优菈服务员",
+            isNew: false,
+            isHot: false,
+          },
+          {
+            id: "9",
+            title: "妻子车祸男子悲痛到抽搐",
+            isNew: false,
+            isHot: false,
+          },
+          {
+            id: "10",
+            title: "LV乒乓球拍售价1.8万",
+            isNew: false,
+            isHot: false,
+          },
+        ],
+      },
     };
   },
   methods: {
-    addTodo(todoObj) {
-      this.todos.unshift(todoObj);
-      this.title = "";
-    },
-    checkTodo(id) {
-      this.todos.forEach((todo) => {
-        if (todo.id === id) todo.done = !todo.done;
-      });
-    },
-    deleteTodo(id) {
-      this.todos = this.todos.filter((todo) => {
-        return todo.id !== id;
-      });
-    },
-    checkAllTodos(value) {
-      this.todos.forEach((todo) => {
-        todo.done = value;
-      });
-    },
-    clearAllTodos() {
-      this.todos = this.todos.filter((todo) => {
-        return !todo.done;
-      });
+    sendInfoTrewndingItems() {
+      this.$bus.$emit("hello", this.middle);
     },
   },
-  watch: {
-    todos: {
-      deep: true,
-      handler(value) {
-        localStorage.setItem("todos", JSON.stringify(value));
-      },
-    },
+  mounted() {
+    this.sendInfoTrewndingItems();
   },
-  mounted(){
-     this.$refs.Footer.$on('checkAllTodos',this.checkAllTodos)
-
-  }
 };
 </script>
-
-<style>
-/*base*/
-body {
-  background: #fff;
-}
-
-.btn {
-  display: inline-block;
-  padding: 4px 12px;
-  margin-bottom: 0;
-  font-size: 14px;
-  line-height: 20px;
-  text-align: center;
-  vertical-align: middle;
-  cursor: pointer;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2),
-    0 1px 2px rgba(0, 0, 0, 0.05);
-  border-radius: 4px;
-}
-
-.btn-danger {
-  color: #fff;
-  background-color: #da4f49;
-  border: 1px solid #bd362f;
-}
-
-.btn-danger:hover {
-  color: #fff;
-  background-color: #bd362f;
-}
-
-.btn:focus {
-  outline: none;
-}
-
-.todo-container {
-  width: 600px;
-  margin: 0 auto;
-}
-.todo-container .todo-wrap {
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-}
-</style>

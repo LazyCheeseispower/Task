@@ -16,6 +16,7 @@ window.addEventListener('load', function () {
      console.log(cards);
     function watchWindowSize() {
         var w = document.documentElement.clientWidth;
+        console.log("我是w",w);
         height = w / 1688 * 160;
         height = height > 155 ? height : 155;
         height = height.toFixed(3);
